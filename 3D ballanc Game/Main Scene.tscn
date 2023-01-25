@@ -1,0 +1,94 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://start point.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ground.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Flag Scene.tscn" type="PackedScene" id=3]
+[ext_resource path="res://player.gd" type="Script" id=4]
+[ext_resource path="res://Main Scene.gd" type="Script" id=5]
+[ext_resource path="res://Position3D.gd" type="Script" id=6]
+
+[sub_resource type="SphereShape" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.160784, 0.52549, 0.65098, 1 )
+
+[sub_resource type="SphereMesh" id=3]
+
+[sub_resource type="BoxShape" id=4]
+
+[sub_resource type="BoxShape" id=5]
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0.960784, 0.898039, 0.898039, 1 )
+
+[sub_resource type="CubeMesh" id=7]
+
+[node name="Level 1" type="Spatial"]
+script = ExtResource( 5 )
+
+[node name="Ground" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.48894, 8.9144 )
+
+[node name="Ground2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51124, -16.2824 )
+
+[node name="Ground5" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45806, -29.9454 )
+
+[node name="Ground6" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45806, -38.4227 )
+
+[node name="Ground7" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.33003, -50.9621 )
+
+[node name="Ground3" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51124, -7.8979 )
+
+[node name="Ground4" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51124, 0.419718 )
+
+[node name="start point" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51124, 17.4457 )
+
+[node name="Flag Scene" parent="." instance=ExtResource( 3 )]
+transform = Transform( 3.91258, 0, 0, 0, 3.91258, 0, 0, 0, 1, -0.00939178, 2.70523, -54.8435 )
+
+[node name="player" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 15.336 )
+script = ExtResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="player"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="player"]
+material_override = SubResource( 2 )
+mesh = SubResource( 3 )
+
+[node name="Losing Area" type="Area" parent="."]
+transform = Transform( 10.5832, 0, 0, 0, 0.317572, 0, 0, 0, 43.4413, 0, -2.30367, -17.158 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Losing Area"]
+shape = SubResource( 4 )
+
+[node name="Winning Area" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.0643325, 0, 0, 0, 1, 0.0452914, 2.58343, -53.9505 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Winning Area"]
+shape = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Winning Area"]
+material_override = SubResource( 6 )
+mesh = SubResource( 7 )
+
+[node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.6378, 64.7139 )
+current = true
+target = NodePath("../camera target")
+enabled = true
+
+[node name="camera target" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.82065, 24.2138 )
+script = ExtResource( 6 )
+
+[connection signal="body_entered" from="Losing Area" to="." method="_on_Losing_Area_body_entered"]
+[connection signal="body_entered" from="Winning Area" to="." method="_on_Winning_Area_body_entered"]

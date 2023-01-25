@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.282353, 0.223529, 0.223529, 1 )
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="BoxShape" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.282353, 0.223529, 0.223529, 1 )
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.282353, 0.223529, 0.223529, 1 )
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0.282353, 0.223529, 0.223529, 1 )
+
+[node name="start point" type="Spatial"]
+
+[node name="Ground" type="StaticBody" parent="."]
+transform = Transform( 4.13967, 0, 0, 0, 0.297379, 0, 0, 0, 4.26073, 0, 0, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Ground"]
+material_override = SubResource( 1 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../..")
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground"]
+shape = SubResource( 3 )
+
+[node name="LeftSide" type="StaticBody" parent="."]
+transform = Transform( 0.0166006, 0.297225, 0, -0.515069, 0.00957953, 0, 0, 0, 4.26073, -3.8285, 0.71954, -0.0623918 )
+
+[node name="MeshInstance" type="MeshInstance" parent="LeftSide"]
+material_override = SubResource( 4 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../..")
+
+[node name="CollisionShape" type="CollisionShape" parent="LeftSide"]
+shape = SubResource( 3 )
+
+[node name="RightSide" type="StaticBody" parent="."]
+transform = Transform( 0.0166006, 0.297225, 0, -0.515069, 0.00957953, 0, 0, 0, 4.26073, 3.8144, 0.71954, -0.0157287 )
+
+[node name="MeshInstance" type="MeshInstance" parent="RightSide"]
+material_override = SubResource( 5 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../..")
+
+[node name="CollisionShape" type="CollisionShape" parent="RightSide"]
+shape = SubResource( 3 )
+
+[node name="BackSide" type="StaticBody" parent="."]
+transform = Transform( -0.00010671, -0.00191058, -3.99289, -0.520625, 0.00968286, 0, 0.0167793, 0.300424, -0.02954, 0.113269, 0.71954, 3.95068 )
+
+[node name="MeshInstance" type="MeshInstance" parent="BackSide"]
+transform = Transform( 1, 0, 1.16415e-10, 3.72529e-09, 1, -7.45058e-09, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 6 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../..")
+
+[node name="CollisionShape" type="CollisionShape" parent="BackSide"]
+shape = SubResource( 3 )
